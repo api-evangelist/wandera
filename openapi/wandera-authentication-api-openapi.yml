@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: Wandera RADAR Risk Authentication API
+  description: The Wandera (Jamf Security Cloud / RADAR) Risk API lets security integrations query the risk states of enrolled mobile and desktop devices and override the risk classification of specific devices. Authentication uses a short-lived JSON Web Token (JWT, 15 minute validity) obtained by exchanging an Application ID and Application Secret via HTTP Basic authorization. Wandera was acquired by Jamf in July 2021; the API continues to be served on the api.wandera.com host and is documented on the Jamf Developer portal.
+  version: v1
+  contact:
+    name: Jamf Developer (Wandera / Jamf Security Cloud)
+    url: https://developer.jamf.com/jamf-security/docs/risk-api-2
+  x-provenance:
+    method: searched
+    source: https://github.com/jamf/RADAR_API_Postman_Collection + https://developer.jamf.com/jamf-security/docs/risk-api-2
+    generated: '2026-07-21'
+servers:
+- url: https://api.wandera.com
+  description: Wandera RADAR production API
+tags:
+- name: Authentication
+  description: Obtain a bearer JWT from Application ID/Secret.
+paths:
+  /v1/login:
+    post:
+      operationId: login
+      tags:
+      - Authentication
+      summary: Obtain a bearer JWT
+      description: Exchange an Application ID and Application Secret (sent as HTTP Basic authorization credentials) for a JSON Web Token. The returned token is valid for 15 minutes and is presented as a Bearer token on subsequent requests. Application credentials are created in the Security Integrations section of RADAR Settings.
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: JWT issued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: The JWT bearer token, valid for 15 minutes.
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    Error:
+      type: object
+      description: Standard RADAR error envelope.
+      properties:
+        logref:
+          type: string
+          description: Machine-parseable error code, stable over time.
+        message:
+          type: string
+          description: Human-readable error message (may change over time).
+        error:
+          type: string
+          description: Short error label.
+        statusCode:
+          type: integer
+          description: HTTP status code.
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded (TOO_MANY_REQUESTS). Retry timing is provided via the X-Rate-Limit-Retry-After-Milliseconds response header. Limits are 5 requests per second and 10,000 requests per day per application integration.
+      headers:
+        X-Rate-Limit-Retry-After-Milliseconds:
+          description: Milliseconds to wait before retrying.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Application ID and Application Secret as HTTP Basic credentials (login only).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Short-lived (15 minute) JWT obtained from POST /v1/login.

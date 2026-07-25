@@ -1,0 +1,200 @@
+openapi: 3.0.3
+info:
+  title: Wandera RADAR Authentication Risk API
+  description: The Wandera (Jamf Security Cloud / RADAR) Risk API lets security integrations query the risk states of enrolled mobile and desktop devices and override the risk classification of specific devices. Authentication uses a short-lived JSON Web Token (JWT, 15 minute validity) obtained by exchanging an Application ID and Application Secret via HTTP Basic authorization. Wandera was acquired by Jamf in July 2021; the API continues to be served on the api.wandera.com host and is documented on the Jamf Developer portal.
+  version: v1
+  contact:
+    name: Jamf Developer (Wandera / Jamf Security Cloud)
+    url: https://developer.jamf.com/jamf-security/docs/risk-api-2
+  x-provenance:
+    method: searched
+    source: https://github.com/jamf/RADAR_API_Postman_Collection + https://developer.jamf.com/jamf-security/docs/risk-api-2
+    generated: '2026-07-21'
+servers:
+- url: https://api.wandera.com
+  description: Wandera RADAR production API
+tags:
+- name: Risk
+  description: Query and override device risk states.
+paths:
+  /risk/v1/devices:
+    get:
+      operationId: getDevices
+      tags:
+      - Risk
+      summary: List device risk states
+      description: Query the risk states of enrolled devices. Results are paginated; the maximum page size is 100 records. Returns device information including device IDs, risk status, OS type and version, and device location.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: page
+        in: query
+        description: Zero-based page index. Must not be negative.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - name: pageSize
+        in: query
+        description: Number of records per page. Maximum is 100.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+      responses:
+        '200':
+          description: A page of device risk states
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  devices:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Device'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /risk/v1/override:
+    put:
+      operationId: overrideDeviceRisk
+      tags:
+      - Risk
+      summary: Override device risk classification
+      description: Override the risk classification for one or more devices. The body specifies the target risk level, the source of the override, and the list of device IDs to apply it to.
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RiskOverride'
+            example:
+              risk: MEDIUM
+              source: WANDERA
+              deviceIds:
+              - 7e94589e-3975-4d73-9ae4-0b74b326e80c
+      responses:
+        '200':
+          description: Override applied
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    NotFound:
+      description: Endpoint does not exist (UNKNOWN_URI_PATH).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded (TOO_MANY_REQUESTS). Retry timing is provided via the X-Rate-Limit-Retry-After-Milliseconds response header. Limits are 5 requests per second and 10,000 requests per day per application integration.
+      headers:
+        X-Rate-Limit-Retry-After-Milliseconds:
+          description: Milliseconds to wait before retrying.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request (e.g. NEGATIVE_PAGE, NEGATIVE_PAGE_SIZE, MAX_LIMIT_PER_PAGE).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    RiskOverride:
+      type: object
+      required:
+      - risk
+      - source
+      - deviceIds
+      properties:
+        risk:
+          type: string
+          description: Risk classification to apply.
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+        source:
+          type: string
+          description: Source of the override.
+          example: WANDERA
+        deviceIds:
+          type: array
+          description: Device IDs the override applies to.
+          items:
+            type: string
+            format: uuid
+    Device:
+      type: object
+      description: Risk state record for a single enrolled device.
+      properties:
+        deviceId:
+          type: string
+          format: uuid
+          description: Unique device identifier.
+        risk:
+          type: string
+          description: Current risk classification of the device.
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+        osType:
+          type: string
+          description: Device operating system family.
+        osVersion:
+          type: string
+          description: Device operating system version.
+        location:
+          type: string
+          description: Device location.
+    Error:
+      type: object
+      description: Standard RADAR error envelope.
+      properties:
+        logref:
+          type: string
+          description: Machine-parseable error code, stable over time.
+        message:
+          type: string
+          description: Human-readable error message (may change over time).
+        error:
+          type: string
+          description: Short error label.
+        statusCode:
+          type: integer
+          description: HTTP status code.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Application ID and Application Secret as HTTP Basic credentials (login only).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Short-lived (15 minute) JWT obtained from POST /v1/login.
