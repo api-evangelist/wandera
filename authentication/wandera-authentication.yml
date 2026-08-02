@@ -1,0 +1,33 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.jamf.com/jamf-security/docs/risk-api-2
+docs: https://developer.jamf.com/jamf-security/docs/risk-api-2
+summary:
+  types:
+    - http-basic
+    - http-bearer
+  token_format: JWT
+  token_ttl_seconds: 900
+  notes: >-
+    Two-step auth. Application ID + Application Secret are sent as HTTP Basic
+    credentials to POST /v1/login, which returns a JSON Web Token valid for 15
+    minutes. That JWT is then presented as a Bearer token on all Risk endpoints.
+    Application credentials are created in the Security Integrations section of
+    RADAR Settings.
+schemes:
+  - name: basicAuth
+    type: http
+    scheme: basic
+    used_by:
+      - login
+    sources:
+      - openapi/wandera-risk-api-openapi.yml
+  - name: bearerAuth
+    type: http
+    scheme: bearer
+    bearer_format: JWT
+    used_by:
+      - getDevices
+      - overrideDeviceRisk
+    sources:
+      - openapi/wandera-risk-api-openapi.yml

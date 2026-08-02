@@ -1,0 +1,21 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.jamf.com/jamf-security/docs/risk-api-2
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://developer.jamf.com/jamf-security/docs/risk-api-2
+provider_status:
+  note: >-
+    Wandera was acquired by Jamf (completed 1 July 2021). The Risk API is now part of
+    Jamf Security Cloud (RADAR) and continues to be served on the api.wandera.com host.
+deprecation:
+  policy_url: null
+  notes: >-
+    The public Postman collection is described as covering "all non-deprecated
+    endpoints", implying some endpoints have been deprecated, but no formal
+    deprecation policy or Sunset/Deprecation header contract is published.
+sla:
+  url: null
+status_page: https://status.jamf.com/
+deprecated_operations: []

@@ -1,0 +1,10 @@
+generated: '2026-07-21'
+method: generated
+skills:
+  - file: wandera-query-device-risk.md
+    name: Query and override device risk (Wandera RADAR)
+    api: openapi/wandera-risk-api-openapi.yml
+    operations:
+      - login
+      - getDevices
+      - overrideDeviceRisk

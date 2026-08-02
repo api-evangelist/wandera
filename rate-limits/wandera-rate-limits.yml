@@ -1,0 +1,17 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.jamf.com/jamf-security/docs/risk-api-2
+scope: per application integration
+rate_limits:
+  - name: per-second
+    limit_count: 5
+    window: 1s
+    applies_to: all Risk API endpoints
+  - name: per-day
+    limit_count: 10000
+    window: 1d
+    applies_to: all Risk API endpoints
+signaling:
+  exceeded_status: 429
+  exceeded_code: TOO_MANY_REQUESTS
+  retry_header: X-Rate-Limit-Retry-After-Milliseconds

@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.jamf.com/jamf-security/docs/risk-api-2
+authentication:
+  style: two-step JWT
+  detail: HTTP Basic (App ID/Secret) to /v1/login -> Bearer JWT (15 min TTL) on all calls.
+  ref: authentication/wandera-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    The Risk API does not document an idempotency-key mechanism. The device risk
+    override (PUT /risk/v1/override) is naturally idempotent by HTTP semantics —
+    re-applying the same risk to the same device IDs yields the same state.
+pagination:
+  style: page-number
+  request_params:
+    - page
+    - pageSize
+  max_page_size: 100
+  notes: getDevices is paginated by page/pageSize; pageSize cannot exceed 100.
+rate_limiting:
+  signaled: true
+  limits:
+    - 5 requests per second per integration
+    - 10,000 requests per day per integration
+  retry_header: X-Rate-Limit-Retry-After-Milliseconds
+  error_code: TOO_MANY_REQUESTS
+  status: 429
+  ref: rate-limits/wandera-rate-limits.yml
+versioning:
+  style: uri-path
+  current: v1
+  detail: Auth at /v1/*, risk resources at /risk/v1/*.
+error_envelope:
+  fields:
+    - logref
+    - message
+    - error
+    - statusCode
+  format: custom
+  ref: errors/wandera-problem-types.yml

@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/wandera-risk-api-openapi.yml
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: Auth is HTTP Basic -> JWT bearer, not OAuth2.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a custom {logref,message,error,statusCode} envelope, not application/problem+json.
+  - id: jwt
+    conforms: true
+    evidence: POST /v1/login issues a JSON Web Token used as a bearer credential.
+  - id: pagination
+    conforms: true
+    evidence: getDevices supports page/pageSize with a documented max of 100.
+  - id: rate-limit-signaling
+    conforms: true
+    evidence: 429 TOO_MANY_REQUESTS with X-Rate-Limit-Retry-After-Milliseconds header.
+  - id: idempotency
+    conforms: false
+    evidence: No idempotency-key mechanism documented.

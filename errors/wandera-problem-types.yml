@@ -1,0 +1,49 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.jamf.com/jamf-security/docs/risk-api-2
+format: custom
+envelope:
+  fields:
+    - logref
+    - message
+    - error
+    - statusCode
+  notes: >-
+    RADAR Risk API errors return a JSON envelope with a machine-parseable code in
+    `logref` (stable over time), a human-readable `message` (may change), a short
+    `error` label, and the numeric `statusCode`. This is not RFC 9457
+    application/problem+json.
+problems:
+  - code: NEGATIVE_PAGE
+    status: 400
+    title: Page parameter must not be negative
+    remediation: Supply a page index >= 0.
+    source_operation: openapi/wandera-risk-api-openapi.yml#getDevices
+  - code: NEGATIVE_PAGE_SIZE
+    status: 400
+    title: Page size must not be negative
+    remediation: Supply a positive pageSize.
+    source_operation: openapi/wandera-risk-api-openapi.yml#getDevices
+  - code: MAX_LIMIT_PER_PAGE
+    status: 400
+    title: Page size exceeds maximum
+    remediation: The maximum limit of records per page is 100; reduce pageSize.
+    source_operation: openapi/wandera-risk-api-openapi.yml#getDevices
+  - code: Forbidden
+    status: 403
+    title: Access denied
+    remediation: Verify the JWT is valid, unexpired (15 min TTL), and the integration has access.
+    source_operation: openapi/wandera-risk-api-openapi.yml
+  - code: UNKNOWN_URI_PATH
+    status: 404
+    title: Endpoint does not exist
+    remediation: Check the request path against the documented Risk API endpoints.
+    source_operation: openapi/wandera-risk-api-openapi.yml
+  - code: TOO_MANY_REQUESTS
+    status: 429
+    title: Rate limit exceeded
+    remediation: >-
+      Back off. Retry timing is provided via the
+      X-Rate-Limit-Retry-After-Milliseconds response header. Limits are 5 req/s and
+      10,000 req/day per application integration.
+    source_operation: openapi/wandera-risk-api-openapi.yml

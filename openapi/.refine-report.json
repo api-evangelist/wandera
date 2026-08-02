@@ -1,0 +1,16 @@
+{
+  "provider": "wandera",
+  "sources": [
+    "wandera-authentication-api-openapi.yml",
+    "wandera-risk-api-openapi.yml"
+  ],
+  "outputs": [
+    "wandera-authentication-api-openapi.yml",
+    "wandera-risk-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

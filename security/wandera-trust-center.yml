@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: searched
+probe: true
+notes: >-
+  Trust center is Jamf's (security.jamf.com), covering former Wandera / Jamf Security
+  Cloud (RADAR) products following the July 2021 acquisition.
+url: https://security.jamf.com/
+certifications:
+  - SOC 2 Type 1
+  - SOC 2 Type 2
+  - ISO/IEC 27001
+  - ISO/IEC 27701
+  - PCI DSS
+  - HIPAA
+  - GDPR
+  - CCPA
+  - CPRA
+  - CSA STAR
+  - Cyber Essentials
+  - EU-US DPF
+  - NIST 800-53 Rev. 5
+evidence:
+  - source: https://security.jamf.com/
+    keywords: [soc 2, iso 27001, pci dss, hipaa, csa star, trust center]

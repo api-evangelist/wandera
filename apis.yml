@@ -1,11 +1,32 @@
 aid: wandera
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/wandera.png
 name: Wandera
-description: 'Wandera is a company surfaced as a portfolio company of bessemer-venture-partners, sapphire-ventures
-  and added to the API Evangelist network as a stub for enrichment. Sector: cybersecurity. This profile
-  is a lead awaiting the enrichment pipeline.'
+description: >-
+  Wandera was a zero-trust mobile security company (backed by Bessemer Venture
+  Partners and Sapphire Ventures) that Jamf acquired in July 2021 for approximately
+  $400M. Its technology is now sold as Jamf Security Cloud (RADAR), providing mobile
+  threat defense, Zero Trust Network Access (ZTNA), and data policy for mobile and
+  desktop fleets. Wandera exposes a REST Risk API on the api.wandera.com host —
+  documented on the Jamf Developer portal — that lets security integrations query the
+  risk state of enrolled devices and override device risk classifications, using a
+  short-lived JWT obtained from an Application ID/Secret pair.
 url: https://raw.githubusercontent.com/api-evangelist/wandera/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
+x-parent: jamf
+x-acquired: '2021-07-01'
 x-backed-by:
 - bessemer-venture-partners
 - sapphire-ventures
@@ -13,16 +34,104 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Cybersecurity
-apis: []
+- Mobile Security
+- Zero Trust
+- Mobile Threat Defense
+- Endpoint Security
+- Device Risk
+- Jamf
+apis:
+- name: Wandera RADAR Risk API
+  description: >-
+    Query the risk states of enrolled devices and override device risk classifications. JWT bearer auth
+    (15-minute tokens) obtained from Application ID/Secret via HTTP Basic. Base host https://api.wandera.com.
+  humanURL: https://developer.jamf.com/jamf-security/docs/risk-api-2
+  baseURL: https://api.wandera.com
+  tags:
+  - Device Risk
+  - Mobile Security
+  - Cybersecurity
+  properties:
+  - type: OpenAPI
+    url: openapi/wandera-risk-api-openapi.yml
+  - type: Documentation
+    url: https://developer.jamf.com/jamf-security/docs/risk-api-2
+  - type: APIReference
+    url: https://developer.jamf.com/jamf-security/docs/risk-api-2
+- aid: wandera:wandera-authentication-api
+  name: Wandera Authentication API
+  description: Obtain a bearer JWT from Application ID/Secret.
+  humanURL: https://developer.jamf.com/jamf-security/docs/risk-api-2
+  baseURL: https://api.wandera.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/wandera-authentication-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/wandera-domain-security.yml
 - type: Website
   url: https://www.wandera.com/
+- type: Documentation
+  url: https://developer.jamf.com/jamf-security/docs/risk-api-2
+- type: APIReference
+  url: https://developer.jamf.com/jamf-security/docs/risk-api-2
+- type: GitHubOrganization
+  url: https://github.com/jamf
+- type: Postman
+  url: https://github.com/jamf/RADAR_API_Postman_Collection
+- type: StatusPage
+  url: https://status.jamf.com/
+- type: Support
+  url: https://www.jamf.com/support/
+- type: OpenAPI
+  url: openapi/wandera-risk-api-openapi.yml
+- type: Authentication
+  url: authentication/wandera-authentication.yml
+- type: ErrorCatalog
+  url: errors/wandera-problem-types.yml
+- type: Conventions
+  url: conventions/wandera-conventions.yml
+- type: RateLimits
+  url: rate-limits/wandera-rate-limits.yml
+- type: Lifecycle
+  url: lifecycle/wandera-lifecycle.yml
+- type: Conformance
+  url: conformance/wandera-conformance.yml
+- type: Compliance
+  url: https://security.jamf.com/
+- type: DataModel
+  url: data-model/wandera-data-model.yml
+- type: MCPServer
+  url: mcp/wandera-mcp.yml
+- type: LLMsTxt
+  url: llms/wandera-llms.txt
+- type: Overlay
+  url: overlays/wandera-risk-api-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/wandera-well-known.yml
+- type: SecurityTxt
+  url: well-known/wandera-security.txt
+- type: VulnerabilityDisclosure
+  url: security/wandera-vulnerability-disclosure.yml
+- type: Security
+  url: https://www.jamf.com/security/vulnerability-disclosure/
+- type: TrustCenter
+  url: security/wandera-trust-center.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1

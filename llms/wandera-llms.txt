@@ -1,0 +1,27 @@
+# Wandera (Jamf Security Cloud / RADAR)
+
+> Wandera was a zero-trust mobile security company acquired by Jamf in July 2021. Its RADAR Risk API — served on api.wandera.com and documented on the Jamf Developer portal — lets security integrations query the risk state of enrolled devices and override device risk classifications. Authentication is a short-lived (15 minute) JWT obtained from an Application ID/Secret.
+
+## APIs
+
+- [Wandera RADAR Risk API](https://developer.jamf.com/jamf-security/docs/risk-api-2): Query and override device risk states. Base host https://api.wandera.com.
+
+## Specs
+
+- [OpenAPI (RADAR Risk API)](openapi/wandera-risk-api-openapi.yml): login, getDevices, overrideDeviceRisk.
+- [Postman collection](postman/wandera-radar-risk-api.postman_collection.json): official jamf/RADAR_API_Postman_Collection.
+
+## Docs
+
+- [Risk API documentation](https://developer.jamf.com/jamf-security/docs/risk-api-2)
+- [Jamf Security documentation](https://docs.jamf.com/jamf-security/radar/)
+- [Authentication](authentication/wandera-authentication.yml)
+- [Error catalog](errors/wandera-problem-types.yml)
+- [Conventions](conventions/wandera-conventions.yml)
+- [Rate limits](rate-limits/wandera-rate-limits.yml)
+- [Lifecycle](lifecycle/wandera-lifecycle.yml)
+
+## Company
+
+- [Jamf (parent)](https://www.jamf.com/): Wandera products now sold as Jamf Security Cloud.
+- [Status](https://status.jamf.com/)

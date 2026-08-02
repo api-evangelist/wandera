@@ -1,0 +1,26 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/wandera-risk-api-openapi.yml
+entities:
+  - name: Device
+    description: A risk-state record for an enrolled device.
+    id_field: deviceId
+    id_format: uuid
+    fields:
+      - deviceId
+      - risk
+      - osType
+      - osVersion
+      - location
+  - name: RiskOverride
+    description: An override applied to the risk classification of one or more devices.
+    fields:
+      - risk
+      - source
+      - deviceIds
+relationships:
+  - from: RiskOverride
+    to: Device
+    type: has_many
+    via: deviceIds
+    notes: An override references one or more Device ids.

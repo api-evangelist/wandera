@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: searched
+notes: >-
+  wandera.com redirects to jamf.com (Wandera was acquired by Jamf, July 2021), so the
+  served /.well-known/security.txt is Jamf's, canonical at www.jamf.com. The API host
+  api.wandera.com returns 403 for all /.well-known/ paths.
+hosts:
+  - host: https://www.jamf.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: wandera-security.txt
+  - host: https://api.wandera.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403

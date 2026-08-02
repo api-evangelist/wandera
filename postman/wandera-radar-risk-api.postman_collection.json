@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "78dae323-a32b-45ee-b0de-0e9b7fc21ed8",
+		"name": "RADAR Risk API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19047489"
+	},
+	"item": [
+		{
+			"name": "Request BearerToken",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.wandera.com/v1/login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"wandera",
+						"com"
+					],
+					"path": [
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Risk Override",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"risk\": \"MEDIUM\",\n    \"source\": \"WANDERA\",\n    \"deviceIds\": [\n        \"7e94589e-3975-4d73-9ae4-0b74b326e80c\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.wandera.com/risk/v1/override",
+					"protocol": "https",
+					"host": [
+						"api",
+						"wandera",
+						"com"
+					],
+					"path": [
+						"risk",
+						"v1",
+						"override"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Devices",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.wandera.com/risk/v1/devices?pageSize=100",
+					"protocol": "https",
+					"host": [
+						"api",
+						"wandera",
+						"com"
+					],
+					"path": [
+						"risk",
+						"v1",
+						"devices"
+					],
+					"query": [
+						{
+							"key": "pageSize",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "application_ID",
+			"value": "YourUsername",
+			"type": "string"
+		},
+		{
+			"key": "application_Secret",
+			"value": "YourPassword",
+			"type": "string"
+		}
+	]
+}

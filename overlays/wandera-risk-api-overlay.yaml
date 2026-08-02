@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Wandera RADAR Risk API
+  version: 1.0.0
+extends: openapi/wandera-risk-api-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: wandera
+      x-apievangelist-parent: jamf
+      x-apievangelist-note: >-
+        Wandera acquired by Jamf July 2021; API served on api.wandera.com as part of
+        Jamf Security Cloud (RADAR).
+  - target: $.info
+    update:
+      x-rate-limit:
+        per_second: 5
+        per_day: 10000
+        retry_header: X-Rate-Limit-Retry-After-Milliseconds
