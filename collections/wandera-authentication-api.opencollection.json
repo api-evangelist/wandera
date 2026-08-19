@@ -1,0 +1,34 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wandera RADAR Risk Authentication API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obtain a bearer JWT",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wandera.com/v1/login",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Exchange an Application ID and Application Secret (sent as HTTP Basic authorization credentials) for a JSON Web Token. The returned token is valid for 15 minutes and is presented as a Bearer token on subsequent requests. Application credentials are created in the Security Integrations section of RADAR Settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

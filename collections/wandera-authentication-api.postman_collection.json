@@ -1,0 +1,218 @@
+{
+  "item": [
+    {
+      "id": "9daacd7c-aca6-467a-a925-73cf6c8b8bc7",
+      "name": "Authentication",
+      "description": {
+        "content": "Obtain a bearer JWT from Application ID/Secret.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aeeff0cc-61c6-4e0e-9f5b-9f4fee8eab1b",
+          "name": "Obtain a bearer JWT",
+          "request": {
+            "name": "Obtain a bearer JWT",
+            "description": {
+              "content": "Exchange an Application ID and Application Secret (sent as HTTP Basic authorization credentials) for a JSON Web Token. The returned token is valid for 15 minutes and is presented as a Bearer token on subsequent requests. Application credentials are created in the Security Integrations section of RADAR Settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "login"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "19f53090-2830-4f7d-89a7-2b3e533eac40",
+              "name": "JWT issued",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9dd9916-4a49-452d-83bb-88c76cb852b2",
+              "name": "Access denied.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logref\": \"string\",\n  \"message\": \"string\",\n  \"error\": \"string\",\n  \"statusCode\": 7729\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7036fee3-0ca8-45cd-8f82-b74d297b279c",
+              "name": "Rate limit exceeded (TOO_MANY_REQUESTS). Retry timing is provided via the X-Rate-Limit-Retry-After-Milliseconds response header. Limits are 5 requests per second and 10,000 requests per day per application integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Milliseconds to wait before retrying.",
+                  "key": "X-Rate-Limit-Retry-After-Milliseconds",
+                  "value": "8729"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logref\": \"string\",\n  \"message\": \"string\",\n  \"error\": \"string\",\n  \"statusCode\": 7729\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wandera.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fcd09836-3f0b-4d5b-b9e5-b364d46d896c",
+    "name": "Wandera RADAR Risk Authentication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Wandera (Jamf Security Cloud / RADAR) Risk API lets security integrations query the risk states of enrolled mobile and desktop devices and override the risk classification of specific devices. Authentication uses a short-lived JSON Web Token (JWT, 15 minute validity) obtained by exchanging an Application ID and Application Secret via HTTP Basic authorization. Wandera was acquired by Jamf in July 2021; the API continues to be served on the api.wandera.com host and is documented on the Jamf Developer portal.\n\nContact Support:\n Name: Jamf Developer (Wandera / Jamf Security Cloud)",
+      "type": "text/plain"
+    }
+  }
+}

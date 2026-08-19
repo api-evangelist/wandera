@@ -2,19 +2,24 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: openapi/wandera-risk-api-openapi.yml
-note: >-
-  No official hosted/remote MCP server was found for the Wandera / Jamf Security Cloud
-  RADAR Risk API. This is a derived candidate tool list, one tool per OpenAPI operation.
+note: No official hosted/remote MCP server was found for the Wandera / Jamf Security Cloud RADAR Risk
+  API. This is a derived candidate tool list, one tool per OpenAPI operation.
 server:
   name: wandera-radar-risk
   transport: stdio
 tools:
-  - name: login
-    description: Obtain a 15-minute bearer JWT from Application ID/Secret.
-    source_operation: openapi/wandera-risk-api-openapi.yml#login
-  - name: get_devices
-    description: List paginated device risk states (risk, OS, location).
-    source_operation: openapi/wandera-risk-api-openapi.yml#getDevices
-  - name: override_device_risk
-    description: Override the risk classification for one or more devices.
-    source_operation: openapi/wandera-risk-api-openapi.yml#overrideDeviceRisk
+- name: login
+  description: Obtain a 15-minute bearer JWT from Application ID/Secret.
+  source_operation: openapi/wandera-risk-api-openapi.yml#login
+- name: get_devices
+  description: List paginated device risk states (risk, OS, location).
+  source_operation: openapi/wandera-risk-api-openapi.yml#getDevices
+- name: override_device_risk
+  description: Override the risk classification for one or more devices.
+  source_operation: openapi/wandera-risk-api-openapi.yml#overrideDeviceRisk
+deployment:
+  mode: none
+  verified: derived
+  tools: 3
+  checked: '2026-08-12'
+  source: catalog MCP census

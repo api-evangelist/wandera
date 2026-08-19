@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wandera RADAR Authentication Risk API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Risk",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List device risk states",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wandera.com/risk/v1/devices",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index. Must not be negative."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Maximum is 100."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Query the risk states of enrolled devices. Results are paginated; the maximum page size is 100 records. Returns device information including device IDs, risk status, OS type and version, and device location."
+        },
+        {
+          "info": {
+            "name": "Override device risk classification",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wandera.com/risk/v1/override",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Override the risk classification for one or more devices. The body specifies the target risk level, the source of the override, and the list of device IDs to apply it to."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

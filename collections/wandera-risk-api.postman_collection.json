@@ -1,0 +1,638 @@
+{
+  "item": [
+    {
+      "id": "abcad7a6-1d31-400d-8095-73cc0691cad8",
+      "name": "Risk",
+      "description": {
+        "content": "Query and override device risk states.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "90150417-45f5-4986-9a8c-4f831ae304dd",
+          "name": "List device risk states",
+          "request": {
+            "name": "List device risk states",
+            "description": {
+              "content": "Query the risk states of enrolled devices. Results are paginated; the maximum page size is 100 records. Returns device information including device IDs, risk status, OS type and version, and device location.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "risk",
+                "v1",
+                "devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Zero-based page index. Must not be negative."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100",
+                  "description": "Number of records per page. Maximum is 100."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "06fd504c-3a34-45f3-b8e3-5c646cfc5dbe",
+              "name": "A page of device risk states",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"devices\": [\n    {\n      \"deviceId\": \"70d7c6ba-19e7-98a4-3329-8c6cab0385f2\",\n      \"risk\": \"MEDIUM\",\n      \"osType\": \"string\",\n      \"osVersion\": \"string\",\n      \"location\": \"string\"\n    },\n    {\n      \"deviceId\": \"b9d5f104-7011-f0f8-f18f-5654e813dc8f\",\n      \"risk\": \"LOW\",\n      \"osType\": \"string\",\n      \"osVersion\": \"string\",\n      \"location\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea995954-7cec-4fc2-b783-c927bf486965",
+              "name": "Invalid request (e.g. NEGATIVE_PAGE, NEGATIVE_PAGE_SIZE, MAX_LIMIT_PER_PAGE).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logref\": \"string\",\n  \"message\": \"string\",\n  \"error\": \"string\",\n  \"statusCode\": 1117\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfacfcfc-3845-47c4-80f0-b0ccbf2f9f5b",
+              "name": "Access denied.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logref\": \"string\",\n  \"message\": \"string\",\n  \"error\": \"string\",\n  \"statusCode\": 1117\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2545c265-5069-4b9a-bffe-a6bb880d377e",
+              "name": "Endpoint does not exist (UNKNOWN_URI_PATH).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logref\": \"string\",\n  \"message\": \"string\",\n  \"error\": \"string\",\n  \"statusCode\": 1117\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "529a2ecc-5b7b-49f9-a5c8-624db0f5898f",
+              "name": "Rate limit exceeded (TOO_MANY_REQUESTS). Retry timing is provided via the X-Rate-Limit-Retry-After-Milliseconds response header. Limits are 5 requests per second and 10,000 requests per day per application integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Milliseconds to wait before retrying.",
+                  "key": "X-Rate-Limit-Retry-After-Milliseconds",
+                  "value": "996"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logref\": \"string\",\n  \"message\": \"string\",\n  \"error\": \"string\",\n  \"statusCode\": 1117\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a6ebf20-c906-4f80-a754-54fe5bbe5623",
+          "name": "Override device risk classification",
+          "request": {
+            "name": "Override device risk classification",
+            "description": {
+              "content": "Override the risk classification for one or more devices. The body specifies the target risk level, the source of the override, and the list of device IDs to apply it to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "risk",
+                "v1",
+                "override"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"risk\": \"<string>\",\n  \"source\": \"<string>\",\n  \"deviceIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a6dcb589-6343-4756-ac22-7165a1576ff7",
+              "name": "Override applied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "override"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"risk\": \"MEDIUM\",\n  \"source\": \"WANDERA\",\n  \"deviceIds\": [\n    \"7e94589e-3975-4d73-9ae4-0b74b326e80c\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c695b250-6533-4a1f-9279-62e9be395092",
+              "name": "Invalid request (e.g. NEGATIVE_PAGE, NEGATIVE_PAGE_SIZE, MAX_LIMIT_PER_PAGE).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "override"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"risk\": \"MEDIUM\",\n  \"source\": \"WANDERA\",\n  \"deviceIds\": [\n    \"7e94589e-3975-4d73-9ae4-0b74b326e80c\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logref\": \"string\",\n  \"message\": \"string\",\n  \"error\": \"string\",\n  \"statusCode\": 1117\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "835e54c0-6568-439d-a81b-7a388615ee66",
+              "name": "Access denied.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "override"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"risk\": \"MEDIUM\",\n  \"source\": \"WANDERA\",\n  \"deviceIds\": [\n    \"7e94589e-3975-4d73-9ae4-0b74b326e80c\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logref\": \"string\",\n  \"message\": \"string\",\n  \"error\": \"string\",\n  \"statusCode\": 1117\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "562b7dc2-099c-4182-acb1-13e78f17b735",
+              "name": "Rate limit exceeded (TOO_MANY_REQUESTS). Retry timing is provided via the X-Rate-Limit-Retry-After-Milliseconds response header. Limits are 5 requests per second and 10,000 requests per day per application integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "override"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"risk\": \"MEDIUM\",\n  \"source\": \"WANDERA\",\n  \"deviceIds\": [\n    \"7e94589e-3975-4d73-9ae4-0b74b326e80c\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Milliseconds to wait before retrying.",
+                  "key": "X-Rate-Limit-Retry-After-Milliseconds",
+                  "value": "996"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logref\": \"string\",\n  \"message\": \"string\",\n  \"error\": \"string\",\n  \"statusCode\": 1117\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wandera.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7f5986e5-2aec-4b21-b189-fe45e74c3a2b",
+    "name": "Wandera RADAR Authentication Risk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Wandera (Jamf Security Cloud / RADAR) Risk API lets security integrations query the risk states of enrolled mobile and desktop devices and override the risk classification of specific devices. Authentication uses a short-lived JSON Web Token (JWT, 15 minute validity) obtained by exchanging an Application ID and Application Secret via HTTP Basic authorization. Wandera was acquired by Jamf in July 2021; the API continues to be served on the api.wandera.com host and is documented on the Jamf Developer portal.\n\nContact Support:\n Name: Jamf Developer (Wandera / Jamf Security Cloud)",
+      "type": "text/plain"
+    }
+  }
+}
