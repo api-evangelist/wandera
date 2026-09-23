@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Wandera RADAR Authentication Risk API
-  description: The Wandera (Jamf Security Cloud / RADAR) Risk API lets security integrations query the risk states of enrolled mobile and desktop devices and override the risk classification of specific devices. Authentication uses a short-lived JSON Web Token (JWT, 15 minute validity) obtained by exchanging an Application ID and Application Secret via HTTP Basic authorization. Wandera was acquired by Jamf in July 2021; the API continues to be served on the api.wandera.com host and is documented on the Jamf Developer portal.
+  description: The Wandera (Jamf Security Cloud / RADAR) Risk API lets security integrations query the risk states of enrolled mobile and desktop devices and override the risk classification of specific devices.
   version: v1
   contact:
     name: Jamf Developer (Wandera / Jamf Security Cloud)
@@ -94,8 +94,20 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
+    Forbidden:
+      description: Access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: Endpoint does not exist (UNKNOWN_URI_PATH).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request (e.g. NEGATIVE_PAGE, NEGATIVE_PAGE_SIZE, MAX_LIMIT_PER_PAGE).
       content:
         application/json:
           schema:
@@ -111,43 +123,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Access denied.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request (e.g. NEGATIVE_PAGE, NEGATIVE_PAGE_SIZE, MAX_LIMIT_PER_PAGE).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    RiskOverride:
-      type: object
-      required:
-      - risk
-      - source
-      - deviceIds
-      properties:
-        risk:
-          type: string
-          description: Risk classification to apply.
-          enum:
-          - LOW
-          - MEDIUM
-          - HIGH
-        source:
-          type: string
-          description: Source of the override.
-          example: WANDERA
-        deviceIds:
-          type: array
-          description: Device IDs the override applies to.
-          items:
-            type: string
-            format: uuid
     Device:
       type: object
       description: Risk state record for a single enrolled device.
@@ -188,6 +164,30 @@ components:
         statusCode:
           type: integer
           description: HTTP status code.
+    RiskOverride:
+      type: object
+      required:
+      - risk
+      - source
+      - deviceIds
+      properties:
+        risk:
+          type: string
+          description: Risk classification to apply.
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+        source:
+          type: string
+          description: Source of the override.
+          example: WANDERA
+        deviceIds:
+          type: array
+          description: Device IDs the override applies to.
+          items:
+            type: string
+            format: uuid
   securitySchemes:
     basicAuth:
       type: http
