@@ -93,61 +93,7 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Forbidden:
-      description: Access denied.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Endpoint does not exist (UNKNOWN_URI_PATH).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request (e.g. NEGATIVE_PAGE, NEGATIVE_PAGE_SIZE, MAX_LIMIT_PER_PAGE).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded (TOO_MANY_REQUESTS). Retry timing is provided via the X-Rate-Limit-Retry-After-Milliseconds response header. Limits are 5 requests per second and 10,000 requests per day per application integration.
-      headers:
-        X-Rate-Limit-Retry-After-Milliseconds:
-          description: Milliseconds to wait before retrying.
-          schema:
-            type: integer
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Device:
-      type: object
-      description: Risk state record for a single enrolled device.
-      properties:
-        deviceId:
-          type: string
-          format: uuid
-          description: Unique device identifier.
-        risk:
-          type: string
-          description: Current risk classification of the device.
-          enum:
-          - LOW
-          - MEDIUM
-          - HIGH
-        osType:
-          type: string
-          description: Device operating system family.
-        osVersion:
-          type: string
-          description: Device operating system version.
-        location:
-          type: string
-          description: Device location.
     Error:
       type: object
       description: Standard RADAR error envelope.
@@ -188,6 +134,60 @@ components:
           items:
             type: string
             format: uuid
+    Device:
+      type: object
+      description: Risk state record for a single enrolled device.
+      properties:
+        deviceId:
+          type: string
+          format: uuid
+          description: Unique device identifier.
+        risk:
+          type: string
+          description: Current risk classification of the device.
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+        osType:
+          type: string
+          description: Device operating system family.
+        osVersion:
+          type: string
+          description: Device operating system version.
+        location:
+          type: string
+          description: Device location.
+  responses:
+    NotFound:
+      description: Endpoint does not exist (UNKNOWN_URI_PATH).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request (e.g. NEGATIVE_PAGE, NEGATIVE_PAGE_SIZE, MAX_LIMIT_PER_PAGE).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded (TOO_MANY_REQUESTS). Retry timing is provided via the X-Rate-Limit-Retry-After-Milliseconds response header. Limits are 5 requests per second and 10,000 requests per day per application integration.
+      headers:
+        X-Rate-Limit-Retry-After-Milliseconds:
+          description: Milliseconds to wait before retrying.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http
