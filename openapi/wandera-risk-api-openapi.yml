@@ -93,47 +93,37 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    Forbidden:
+      description: Access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request (e.g. NEGATIVE_PAGE, NEGATIVE_PAGE_SIZE, MAX_LIMIT_PER_PAGE).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Endpoint does not exist (UNKNOWN_URI_PATH).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded (TOO_MANY_REQUESTS). Retry timing is provided via the X-Rate-Limit-Retry-After-Milliseconds response header. Limits are 5 requests per second and 10,000 requests per day per application integration.
+      headers:
+        X-Rate-Limit-Retry-After-Milliseconds:
+          description: Milliseconds to wait before retrying.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard RADAR error envelope.
-      properties:
-        logref:
-          type: string
-          description: Machine-parseable error code, stable over time.
-        message:
-          type: string
-          description: Human-readable error message (may change over time).
-        error:
-          type: string
-          description: Short error label.
-        statusCode:
-          type: integer
-          description: HTTP status code.
-    RiskOverride:
-      type: object
-      required:
-      - risk
-      - source
-      - deviceIds
-      properties:
-        risk:
-          type: string
-          description: Risk classification to apply.
-          enum:
-          - LOW
-          - MEDIUM
-          - HIGH
-        source:
-          type: string
-          description: Source of the override.
-          example: WANDERA
-        deviceIds:
-          type: array
-          description: Device IDs the override applies to.
-          items:
-            type: string
-            format: uuid
     Device:
       type: object
       description: Risk state record for a single enrolled device.
@@ -158,36 +148,46 @@ components:
         location:
           type: string
           description: Device location.
-  responses:
-    NotFound:
-      description: Endpoint does not exist (UNKNOWN_URI_PATH).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Access denied.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request (e.g. NEGATIVE_PAGE, NEGATIVE_PAGE_SIZE, MAX_LIMIT_PER_PAGE).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded (TOO_MANY_REQUESTS). Retry timing is provided via the X-Rate-Limit-Retry-After-Milliseconds response header. Limits are 5 requests per second and 10,000 requests per day per application integration.
-      headers:
-        X-Rate-Limit-Retry-After-Milliseconds:
-          description: Milliseconds to wait before retrying.
-          schema:
-            type: integer
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    RiskOverride:
+      type: object
+      required:
+      - risk
+      - source
+      - deviceIds
+      properties:
+        risk:
+          type: string
+          description: Risk classification to apply.
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+        source:
+          type: string
+          description: Source of the override.
+          example: WANDERA
+        deviceIds:
+          type: array
+          description: Device IDs the override applies to.
+          items:
+            type: string
+            format: uuid
+    Error:
+      type: object
+      description: Standard RADAR error envelope.
+      properties:
+        logref:
+          type: string
+          description: Machine-parseable error code, stable over time.
+        message:
+          type: string
+          description: Human-readable error message (may change over time).
+        error:
+          type: string
+          description: Short error label.
+        statusCode:
+          type: integer
+          description: HTTP status code.
   securitySchemes:
     basicAuth:
       type: http
