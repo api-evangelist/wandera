@@ -92,6 +92,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/wandera-capability-edges.yml
+  name: Wandera Business Capability Map
 - type: DomainSecurity
   url: security/wandera-domain-security.yml
 - type: Website

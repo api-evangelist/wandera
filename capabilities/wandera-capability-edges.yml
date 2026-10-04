@@ -1,0 +1,26 @@
+slug: wandera
+provider: Wandera
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Risk
+  spec_file: wandera-risk-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.7
+  evidence: GET /risk/v1/devices 'List device risk states'; PUT /risk/v1/override 'Override device risk
+    classification'; schemas Device, RiskOverride
+  reason: 'Mobile threat defense: querying and overriding security risk classification of enrolled devices
+    for security integrations. This is cybersecurity threat detection/response, not enterprise risk management.
+    Sub-capability choice (threat detection vs. broader security governance) carries some ambiguity.'
