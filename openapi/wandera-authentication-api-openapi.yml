@@ -42,23 +42,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  schemas:
-    Error:
-      type: object
-      description: Standard RADAR error envelope.
-      properties:
-        logref:
-          type: string
-          description: Machine-parseable error code, stable over time.
-        message:
-          type: string
-          description: Human-readable error message (may change over time).
-        error:
-          type: string
-          description: Short error label.
-        statusCode:
-          type: integer
-          description: HTTP status code.
   responses:
     Forbidden:
       description: Access denied.
@@ -77,6 +60,23 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      description: Standard RADAR error envelope.
+      properties:
+        logref:
+          type: string
+          description: Machine-parseable error code, stable over time.
+        message:
+          type: string
+          description: Human-readable error message (may change over time).
+        error:
+          type: string
+          description: Short error label.
+        statusCode:
+          type: integer
+          description: HTTP status code.
   securitySchemes:
     basicAuth:
       type: http
